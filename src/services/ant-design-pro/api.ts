@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/admin/getCurrentUser', {
     method: 'GET',
     ...(options || {}),
   });
@@ -14,15 +14,15 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
-    method: 'POST',
+  return request<Record<string, any>>('/api/admin/logout', {
+    method: 'GET',
     ...(options || {}),
   });
 }
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>('/api/admin/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
