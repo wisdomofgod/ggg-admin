@@ -32,8 +32,18 @@ export async function reGenerate(params: {}, options?: { [key: string]: any }) {
   });
 }
 
-export async function getInviteInfo(params: {}, options?: { [key: string]: any }) {
-  return request<any>('/api/admin/getInviteInfo', {
+export async function getDashboardInfo(params: {}, options?: { [key: string]: any }) {
+  return request<any>('/api/admin/getDashboardInfo', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+export async function getInvites(params: {}, options?: { [key: string]: any }) {
+  return request<any>('/api/admin/invites', {
     method: 'GET',
     params: {
       ...params,

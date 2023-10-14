@@ -2,7 +2,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { Card, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { StatisticCard } from '@ant-design/pro-components';
-import { getInviteInfo } from '@/services/ant-design-pro/admin';
+import { getDashboardInfo } from '@/services/ant-design-pro/admin';
 import styles from './Welcome.less';
 
 const { Statistic, Divider } = StatisticCard;
@@ -25,7 +25,7 @@ const Welcome: React.FC = () => {
     history_order_ratio: '-',
   });
   useEffect(() => {
-    getInviteInfo({}).then((res) => {
+    getDashboardInfo({}).then((res) => {
       setData({
         ...res.data,
         lm_user_ratio: parseRatio(res.data.lm_invite_user / res.data.all_invite_user),

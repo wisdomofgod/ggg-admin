@@ -49,6 +49,12 @@
     component: './OrderList',
   },
   {
+    name: '邀请列表',
+    icon: 'table',
+    path: '/invite-list',
+    component: './InviteList',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
