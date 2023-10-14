@@ -15,7 +15,7 @@
   },
   {
     path: '/welcome',
-    name: 'welcome',
+    name: '首页',
     icon: 'smile',
     component: './Welcome',
   },
@@ -37,10 +37,16 @@
     ],
   },
   {
-    name: 'list.table-list',
+    name: '用户列表',
     icon: 'table',
     path: '/list',
-    component: './TableList',
+    component: './UserList',
+  },
+  {
+    name: '订单列表',
+    icon: 'table',
+    path: '/order-list',
+    component: './OrderList',
   },
   {
     path: '/',

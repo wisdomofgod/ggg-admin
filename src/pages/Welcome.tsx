@@ -1,46 +1,69 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Alert, Card, Typography } from 'antd';
-import React from 'react';
-import { FormattedMessage, useIntl } from 'umi';
+import { Card, Typography } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { StatisticCard } from '@ant-design/pro-components';
+import { getInviteInfo } from '@/services/ant-design-pro/admin';
 import styles from './Welcome.less';
 
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
+const { Statistic, Divider } = StatisticCard;
 
 const Welcome: React.FC = () => {
-  const intl = useIntl();
+  const [data, setData] = useState({
+    all_invite_user: 0,
+    all_invite_orders: 0,
+    lm_invite_orders: 0,
+    lm_invite_user: 0,
+    lm_user_ratio: '-',
+    lm_order_ratio: '-',
+  });
+  useEffect(() => {
+    getInviteInfo({}).then((res) => {
+      setData(res);
+    });
+  }, []);
 
   return (
     <PageContainer>
       <Card>
-        <Alert
-          message={intl.formatMessage({
-            id: 'pages.welcome.alertMessage',
-            defaultMessage: 'Faster and stronger heavy-duty components have been released.',
-          })}
-          type="success"
-          showIcon
-          banner
-          style={{
-            margin: -12,
-            marginBottom: 24,
-          }}
-        />
-        <Typography.Text strong>
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="Welcome" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-components</CodePreview>
+        <StatisticCard.Group direction={'row'}>
+          <StatisticCard
+            statistic={{
+              title: '总邀请注册用户数',
+              value: data.all_invite_user,
+            }}
+          />
+          <Divider type={'horizontal'} />
+          <StatisticCard
+            statistic={{
+              title: '上月邀请注册用户数',
+              value: data.lm_invite_user,
+              description: <Statistic title="占比" value={data.lm_user_ratio} />,
+            }}
+            chart={
+              <img
+                src="https://gw.alipayobjects.com/zos/alicdn/ShNDpDTik/huan.svg"
+                alt="百分比"
+                width="100%"
+              />
+            }
+            chartPlacement="left"
+          />
+          <StatisticCard
+            statistic={{
+              title: '历史邀请注册用户数',
+              value: data.all_invite_user - data.lm_invite_user,
+              description: <Statistic title="占比" value="38.5%" />,
+            }}
+            chart={
+              <img
+                src="https://gw.alipayobjects.com/zos/alicdn/6YR18tCxJ/huanlv.svg"
+                alt="百分比"
+                width="100%"
+              />
+            }
+            chartPlacement="left"
+          />
+        </StatisticCard.Group>
       </Card>
     </PageContainer>
   );
