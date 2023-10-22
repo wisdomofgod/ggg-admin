@@ -46,6 +46,10 @@ const TableList: React.FC = () => {
       dataIndex: 'phone',
     },
     {
+      title: '总订单数',
+      dataIndex: 'total_orders',
+    },
+    {
       title: '注册时间',
       dataIndex: 'created_time',
       hideInForm: true,
