@@ -74,7 +74,7 @@ const TableList: React.FC = () => {
     },
     {
       title: '用户',
-      dataIndex: 'created_by',
+      dataIndex: 'username',
       render: (dom, entity) => {
         return (
           <a
