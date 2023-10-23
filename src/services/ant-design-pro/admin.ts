@@ -23,7 +23,7 @@ export async function getOrders(params: {}, options?: { [key: string]: any }) {
 }
 
 export async function reGenerate(params: {}, options?: { [key: string]: any }) {
-  return request<any>('/api/admin/reGenerate', {
+  return request<any>('/api/admin/re_generate', {
     method: 'GET',
     params: {
       ...params,

@@ -121,10 +121,17 @@ const TableList: React.FC = () => {
               >
                 下载
               </a>
+              <a
+                onClick={() => {
+                  onReGenerate(record);
+                }}
+              >
+                重新生成
+              </a>
             </Space>
           );
         }
-        if (record.status == 'timeout') {
+        if (record.status == 'timeout' || record.status == 'paid') {
           return (
             <Space size="middle">
               <a
