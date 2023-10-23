@@ -75,7 +75,7 @@ const TableList: React.FC = () => {
     {
       title: '用户',
       dataIndex: 'username',
-      render: (dom, entity) => {
+      render: (dom: string, entity: any) => {
         return (
           <a
             onClick={() => {
@@ -83,7 +83,7 @@ const TableList: React.FC = () => {
               setShowDetail(true);
             }}
           >
-            {dom ? dom : `临时用户：${entity.created_by_tmp_user}`}
+            {dom && dom !== '-' ? dom : `临时用户：${entity.created_by_tmp_user}`}
           </a>
         );
       },
