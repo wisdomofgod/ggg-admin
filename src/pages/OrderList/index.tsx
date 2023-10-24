@@ -29,7 +29,7 @@ const TableList: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
 
   const onReGenerate = (record: any) => {
-    reGenerate(record.order_number).then(() => {
+    reGenerate({ order_number: record.order_number }).then(() => {
       message.success('重新生成成功!');
     });
   };
