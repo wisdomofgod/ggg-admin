@@ -31,6 +31,7 @@ const TableList: React.FC = () => {
   const onReGenerate = (record: any) => {
     reGenerate({ order_number: record.order_number }).then(() => {
       message.success('重新生成成功!');
+      actionRef?.current?.reload();
     });
   };
 
