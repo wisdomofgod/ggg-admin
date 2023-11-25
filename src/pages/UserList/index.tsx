@@ -1,14 +1,8 @@
-import { getUsers } from '@/services/ant-design-pro/admin';
+import { getUsers, delUser } from '@/services/ant-design-pro/admin';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
-import {
-  FooterToolbar,
-  PageContainer,
-  ProDescriptions,
-  ProTable,
-} from '@ant-design/pro-components';
-import { Button, Drawer } from 'antd';
+import { PageContainer, ProDescriptions, ProTable } from '@ant-design/pro-components';
+import { Drawer, Popconfirm, Space, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'umi';
 
 const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
@@ -16,6 +10,16 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
   const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+
+  const deleteUser = async (record: any) => {
+    const res = await delUser({ id: record.id });
+    if (res.error) {
+      message.error(res.error);
+    } else {
+      message.success('删除成功');
+      actionRef.current?.reloadAndRest?.();
+    }
+  };
 
   const columns: ProColumns<API.RuleListItem>[] = [
     {
@@ -59,16 +63,29 @@ const TableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => [
-        <a
-          key="config"
-          onClick={() => {
-            setCurrentRow(record);
-          }}
-        >
-          用户详情
-        </a>,
-      ],
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <a
+              key="config"
+              onClick={() => {
+                setCurrentRow(record);
+              }}
+            >
+              用户详情
+            </a>
+            <Popconfirm
+              key="del"
+              title="是否确认删除?"
+              onConfirm={() => {
+                deleteUser(record);
+              }}
+            >
+              <a>删除用户</a>
+            </Popconfirm>
+          </Space>
+        );
+      },
     },
   ];
 

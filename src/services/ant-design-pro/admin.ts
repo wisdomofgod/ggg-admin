@@ -51,3 +51,13 @@ export async function getInvites(params: {}, options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+export async function delUser(params: {}, options?: { [key: string]: any }) {
+  return request<any>('/api/admin/deluser', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
