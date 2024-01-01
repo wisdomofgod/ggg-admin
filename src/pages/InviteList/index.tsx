@@ -1,12 +1,7 @@
 import { getInvites } from '@/services/ant-design-pro/admin';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
-import {
-  FooterToolbar,
-  PageContainer,
-  ProDescriptions,
-  ProTable,
-} from '@ant-design/pro-components';
-import { Button, Drawer } from 'antd';
+import { PageContainer, ProDescriptions, ProTable } from '@ant-design/pro-components';
+import { DatePicker, Drawer } from 'antd';
 import React, { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'umi';
 
@@ -53,10 +48,25 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '上月邀请支付订单数',
+      title: '邀请支付订单数',
+      tooltip: '没有选择订单创建时间时默认为上个月',
       dataIndex: 'lm_invite_orders',
       hideInForm: true,
       search: false,
+    },
+    {
+      title: '订单创建时间',
+      dataIndex: 'created_time',
+      // hideInForm: false,
+      hideInTable: true,
+      renderFormItem: () => {
+        return <DatePicker.RangePicker />;
+      },
+      search: {
+        transform: (value, namescape, allValues) => {
+          return { startTime: value[0], endTime: value[1] };
+        },
+      },
     },
     {
       title: '操作',
