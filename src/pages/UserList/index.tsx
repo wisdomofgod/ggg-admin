@@ -1,7 +1,7 @@
 import { getUsers, delUser } from '@/services/ant-design-pro/admin';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import { PageContainer, ProDescriptions, ProTable } from '@ant-design/pro-components';
-import { Drawer, Popconfirm, Space, message } from 'antd';
+import { DatePicker, Drawer, Popconfirm, Space, message } from 'antd';
 import React, { useRef, useState } from 'react';
 
 const TableList: React.FC = () => {
@@ -52,12 +52,21 @@ const TableList: React.FC = () => {
     {
       title: '总订单数',
       dataIndex: 'total_orders',
+      hideInForm: true,
+      search: false,
     },
     {
       title: '注册时间',
       dataIndex: 'created_time',
-      hideInForm: true,
-      search: false,
+      hideInForm: false,
+      renderFormItem: () => {
+        return <DatePicker.RangePicker />;
+      },
+      search: {
+        transform: (value, namescape, allValues) => {
+          return { startTime: value[0], endTime: value[1] };
+        },
+      },
     },
     {
       title: '操作',

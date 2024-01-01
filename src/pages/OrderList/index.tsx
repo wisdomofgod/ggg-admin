@@ -6,7 +6,7 @@ import {
   ProDescriptions,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Drawer, Space, message } from 'antd';
+import { Button, Drawer, Space, message, DatePicker } from 'antd';
 import React, { useRef, useState } from 'react';
 import { FormattedMessage } from 'umi';
 
@@ -92,8 +92,15 @@ const TableList: React.FC = () => {
     {
       title: '创建时间',
       dataIndex: 'created_time',
-      hideInForm: true,
-      search: false,
+      // hideInForm: false,
+      renderFormItem: () => {
+        return <DatePicker.RangePicker />;
+      },
+      search: {
+        transform: (value, namescape, allValues) => {
+          return { startTime: value[0], endTime: value[1] };
+        },
+      },
     },
     {
       title: '支付时间',
